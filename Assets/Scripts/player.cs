@@ -14,7 +14,7 @@ public class player : MonoBehaviour
     private bool shield, dampener;
     public Rigidbody2D rb;
     public Transform cannon;
-    public GameObject missile;
+    public GameObject missile,bullet;
     private SpriteRenderer shieldImage;
     void Start()
     {
@@ -44,7 +44,17 @@ public class player : MonoBehaviour
         }
         if (Input.GetKeyDown("space"))
         {
-            Instantiate(missile, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+            int shootType = Random.Range(0, 2);
+            switch (shootType)
+            {
+                case 0:
+                    Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+                    break;
+
+                case 1:
+                    Instantiate(missile, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+                    break;
+            }
             Debug.Log(cannon.transform);
         }
         if (Input.GetKeyDown("z"))
