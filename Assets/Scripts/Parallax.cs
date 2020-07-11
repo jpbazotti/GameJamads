@@ -25,7 +25,6 @@ public class Parallax : MonoBehaviour
 
         if (x + length < camPos - camHor)
         {
-            Debug.Log(spriteOnLeft.transform.position.x + length * 2);
             transform.position = new Vector3((spriteOnLeft.transform.position.x + length * 2) - 1, transform.position.y, transform.position.z);
         }
     }

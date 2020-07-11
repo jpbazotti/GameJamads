@@ -41,7 +41,6 @@ public class missile : MonoBehaviour
             {
                 targetAcquired=true;
                 targetLocation = colliders[i].gameObject.transform.position;
-                Debug.Log(targetLocation.x+" "+targetLocation.y);
                 i = colliders.Length;
 
             }

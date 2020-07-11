@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
-    public float vel, accl, desaccl;
-    private float moveX, moveY;
+    public float vel, accl, desaccl,iframes,shieldRecoverTimer;
+    private float moveX, moveY, invencibility,shieldRecover;
     private int chance;
     public int hp;
-    private bool shield, dampener;
+    private bool shield, dampener,blinking,shieldMalfunction,shielding;
     public Rigidbody2D rb;
     public Transform cannon;
     public GameObject missile,bullet;
@@ -23,6 +23,8 @@ public class player : MonoBehaviour
         animator.SetBool("shield", true);
         dampener = true;
         shield = true;
+        blinking = false;
+        shielding=false;
         moveX = 0;
     }
 
@@ -36,13 +38,7 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        chance = Random.Range(0, 600);
-        if (chance >= 599)
-        {
-            shieldHit(false,true);
-            dampener = false;
-            Debug.Log("dampeners off");
-        }
+        randomEvents();
         if (Input.GetKeyDown("space"))
         {
             int shootType = Random.Range(0, 2);
@@ -58,22 +54,42 @@ public class player : MonoBehaviour
             }
             Debug.Log(cannon.transform);
         }
+        if (Input.GetKeyDown("x")&&shieldMalfunction&&!shielding)
+        {
+            StartCoroutine(shieldManagement(true,false));
+            shieldMalfunction = false;
+        }
         if (Input.GetKeyDown("z"))
         {
             dampener = true;
-            shieldHit(true,false);
         }
-        if (rb.velocity.y > 0)
+
+        invencibility -= Time.deltaTime;
+        if (invencibility > 0 && !blinking)
         {
-          
+            StartCoroutine(blink());
         }
-        else if (rb.velocity.y < 0)
+        shieldRecover -= Time.deltaTime;
+        if (!shieldMalfunction && shieldRecover <= 0)
         {
-            
+            StartCoroutine(shieldManagement(true,false));
         }
-        else
+    }
+
+    void randomEvents()
+    {
+        chance = Random.Range(0, 600);
+        if (chance >= 599)
         {
-           
+            dampener = false;
+            Debug.Log("dampeners off");
+        }
+        chance = Random.Range(0, 600);
+        if (chance >= 599)
+        {
+            StartCoroutine(shieldManagement(false, true));
+            Debug.Log("shields off");
+
         }
     }
 
@@ -94,28 +110,64 @@ public class player : MonoBehaviour
     }
     public void takeDamage(int i)
     {
+
         if (!shield)
         {
-            hp -= i;
+            if (invencibility < 0)
+            {
+                hp -= i;
+                invencibility = iframes;
+            }
+           
+            if (hp <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            shieldHit(false,false);
+            StartCoroutine(shieldManagement(false, false));
         }
-        if (hp <= 0)
-        {
-            Destroy(gameObject);
-        }
+
     }
 
-    void shieldHit(bool activated,bool malfunction)
+    IEnumerator shieldManagement(bool activated,bool malfunction)
     {
-        shield = activated;
+        shielding = true;
         animator.SetBool("shield", activated);
         animator.SetBool("shieldMalfunction", malfunction);
+        if (!malfunction)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(3.2f);
+        }
+        if (!malfunction)
+        {
+            shieldRecover = shieldRecoverTimer;
+        }
+        else
+        {
+            shieldMalfunction = true;
+        }
+        shield = activated;
+        shielding = false;
+
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(cannon.transform.position,5f);
+    }
+    IEnumerator blink()
+    {
+        blinking = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.05f);
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(0.05f);
+        blinking = false;
     }
 }
