@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8256386320871832171}
   vel: 40
-  seekVel: 40
+  seekVel: 60
   detectionRadius: 50
   enemyLayer:
     serializedVersion: 2
