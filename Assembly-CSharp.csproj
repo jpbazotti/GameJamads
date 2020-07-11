@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\enemy_behavior.cs" />
     <Compile Include="Assets\Scripts\missile.cs" />
     <Compile Include="Assets\Scripts\player.cs" />
+    <Compile Include="Assets\Scripts\spawner.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

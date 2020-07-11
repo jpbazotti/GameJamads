@@ -65,7 +65,7 @@ public class missile : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("border"))
+        if (collision.gameObject.CompareTag("border_despawn"))
         {
             Destroy(gameObject);
         }

@@ -11,14 +11,16 @@ public class player : MonoBehaviour
     public float vel, accl, desaccl;
     private float moveX, moveY;
     private int chance;
+    public int hp;
     private bool shield, dampener;
     public Rigidbody2D rb;
     public Transform cannon;
     public GameObject missile,bullet;
-    private SpriteRenderer shieldImage;
+    private Animator animator;
     void Start()
     {
-        shieldImage = this.transform.GetChild(1).GetComponent<SpriteRenderer>();
+        animator = this.GetComponent<Animator>();
+        animator.SetBool("shield", true);
         dampener = true;
         shield = true;
         moveX = 0;
@@ -37,8 +39,7 @@ public class player : MonoBehaviour
         chance = Random.Range(0, 600);
         if (chance >= 599)
         {
-            shield = false;
-            shieldImage.enabled = false;
+            shieldHit(false,true);
             dampener = false;
             Debug.Log("dampeners off");
         }
@@ -60,8 +61,7 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown("z"))
         {
             dampener = true;
-            shieldImage.enabled = true;
-            shield = true;
+            shieldHit(true,false);
         }
         if (rb.velocity.y > 0)
         {
@@ -92,18 +92,28 @@ public class player : MonoBehaviour
             rb.AddForce(new Vector2(x*vel*2, y*vel*2));
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void takeDamage(int i)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (!shield)
+        {
+            hp -= i;
+        }
+        else
+        {
+            shieldHit(false,false);
+        }
+        if (hp <= 0)
         {
             Destroy(gameObject);
-
-            Destroy(collision.gameObject);
-
-            SceneManager.LoadScene("Menu");
         }
     }
 
+    void shieldHit(bool activated,bool malfunction)
+    {
+        shield = activated;
+        animator.SetBool("shield", activated);
+        animator.SetBool("shieldMalfunction", malfunction);
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(cannon.transform.position,5f);
