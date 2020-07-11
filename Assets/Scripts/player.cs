@@ -4,28 +4,33 @@ using System.Transactions;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
-    public float vel, accl, desaccl,iframes,shieldRecoverTimer;
-    private float moveX, moveY, invencibility,shieldRecover;
-    private int chance;
-    public int hp;
-    private bool shield, dampener,blinking,shieldMalfunction,shielding;
+    public float vel, accl, desaccl, iframes, shieldRecoverTimer;
+    private float moveX, moveY, invencibility, shieldRecover;
+    private int chance, shieldFixCounter;
+    public int hp, shieldFix;
+    private bool shield, dampener, blinking, shieldMalfunction, shieldMalfunctionAllow, shielding, shooting;
     public Rigidbody2D rb;
-    public Transform cannon;
-    public GameObject missile,bullet;
+    public Transform cannon, cannonDown, cannonUp;
+    public GameObject missile, bullet;
     private Animator animator;
+    public heath_bar heath_Bar;
     void Start()
     {
+        shieldFixCounter = shieldFix;
         animator = this.GetComponent<Animator>();
         animator.SetBool("shield", true);
         dampener = true;
         shield = true;
+        shieldMalfunctionAllow = true;
         blinking = false;
-        shielding=false;
+        shielding = false;
+        shooting = false;
         moveX = 0;
+        heath_Bar.setMaxHealth(7);
     }
 
     private void FixedUpdate()
@@ -39,25 +44,20 @@ public class player : MonoBehaviour
     void Update()
     {
         randomEvents();
-        if (Input.GetKeyDown("space"))
+        if (!shooting)
         {
-            int shootType = Random.Range(0, 2);
-            switch (shootType)
-            {
-                case 0:
-                    Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, -90));
-                    break;
-
-                case 1:
-                    Instantiate(missile, cannon.transform.position, Quaternion.Euler(0, 0, -90));
-                    break;
-            }
-            Debug.Log(cannon.transform);
+            StartCoroutine(shoot());
         }
-        if (Input.GetKeyDown("x")&&shieldMalfunction&&!shielding)
+        if (Input.GetKeyDown("space") && shieldMalfunction && !shielding)
         {
-            StartCoroutine(shieldManagement(true,false));
-            shieldMalfunction = false;
+            shieldFixCounter -= 1;
+            if (shieldFixCounter <= 0)
+            {
+                shieldFixCounter = shieldFix;
+                StartCoroutine(shieldManagement(true, false));
+                shieldMalfunction = false;
+                shieldMalfunctionAllow = true;
+            }
         }
         if (Input.GetKeyDown("z"))
         {
@@ -70,9 +70,9 @@ public class player : MonoBehaviour
             StartCoroutine(blink());
         }
         shieldRecover -= Time.deltaTime;
-        if (!shieldMalfunction && shieldRecover <= 0)
+        if (!shieldMalfunction && shieldRecover <= 0 && shieldMalfunctionAllow)
         {
-            StartCoroutine(shieldManagement(true,false));
+            StartCoroutine(shieldManagement(true, false));
         }
     }
 
@@ -85,7 +85,7 @@ public class player : MonoBehaviour
             Debug.Log("dampeners off");
         }
         chance = Random.Range(0, 600);
-        if (chance >= 599)
+        if (chance >= 599 && shieldMalfunctionAllow)
         {
             StartCoroutine(shieldManagement(false, true));
             Debug.Log("shields off");
@@ -95,17 +95,17 @@ public class player : MonoBehaviour
 
     void move(float x, float y, bool dampener)
     {
-        if ((x != 0 || y != 0)&&dampener)
+        if ((x != 0 || y != 0) && dampener)
         {
             rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, moveX * vel, accl), Mathf.MoveTowards(rb.velocity.y, moveY * vel, accl));
         }
-        else if(dampener)
+        else if (dampener)
         {
             rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, desaccl), Mathf.MoveTowards(rb.velocity.y, 0, desaccl));
         }
         else
         {
-            rb.AddForce(new Vector2(x*vel*2, y*vel*2));
+            rb.AddForce(new Vector2(x * vel * 2, y * vel * 2));
         }
     }
     public void takeDamage(int i)
@@ -116,9 +116,10 @@ public class player : MonoBehaviour
             if (invencibility < 0)
             {
                 hp -= i;
+                heath_Bar.setHealth(hp);
                 invencibility = iframes;
             }
-           
+
             if (hp <= 0)
             {
                 Destroy(gameObject);
@@ -131,25 +132,20 @@ public class player : MonoBehaviour
 
     }
 
-    IEnumerator shieldManagement(bool activated,bool malfunction)
+    IEnumerator shieldManagement(bool activated, bool malfunction)
     {
         shielding = true;
         animator.SetBool("shield", activated);
         animator.SetBool("shieldMalfunction", malfunction);
         if (!malfunction)
         {
+            shieldRecover = shieldRecoverTimer;
             yield return new WaitForSeconds(0.1f);
         }
         else
         {
+            shieldMalfunctionAllow = false;
             yield return new WaitForSeconds(3.2f);
-        }
-        if (!malfunction)
-        {
-            shieldRecover = shieldRecoverTimer;
-        }
-        else
-        {
             shieldMalfunction = true;
         }
         shield = activated;
@@ -159,7 +155,7 @@ public class player : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(cannon.transform.position,5f);
+        Gizmos.DrawWireSphere(cannon.transform.position, 5f);
     }
     IEnumerator blink()
     {
@@ -169,5 +165,29 @@ public class player : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(0.05f);
         blinking = false;
+    }
+
+    IEnumerator shoot()
+    {
+        shooting = true;
+        int shootType = Random.Range(1, 101);
+        
+        if(shootType <= 60) {
+            Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+        }else if( shootType <= 90)
+        {
+            Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+            Instantiate(bullet, cannonDown.transform.position, Quaternion.Euler(0, 0, -100));
+            Instantiate(bullet, cannonUp.transform.position, Quaternion.Euler(0, 0, -80));
+        }
+        else
+        {
+            Instantiate(missile, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+        }
+
+        
+
+        yield return new WaitForSeconds(0.2f);
+        shooting = false;
     }
 }
