@@ -48,7 +48,7 @@ public class player : MonoBehaviour
             switch (shootType)
             {
                 case 0:
-                    Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, -90));
+                    Instantiate(bullet, cannon.transform.position, Quaternion.Euler(0, 0, 0));
                     break;
 
                 case 1:

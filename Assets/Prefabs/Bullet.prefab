@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6521489424644482131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7542, y: 0.5108, z: -3.9394817}
-  m_LocalScale: {x: 0.570038, y: 0.570038, z: 0.570038}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,12 +73,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7d5181e38e68f1d4ca7d72ff4a14a248, type: 3}
+  m_Sprite: {fileID: -467307283419413426, guid: 9888ecbbae2cdce4699e096714b3597c,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 3}
+  m_Size: {x: 8.59375, y: 3.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 621749434315156436}
   vel: 50
+  enemyShoot: 0
 --- !u!61 &9182129384274326020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,8 +138,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.5, y: 3}
-    newSize: {x: 2.5, y: 3}
+    oldSize: {x: 8.59375, y: 3.125}
+    newSize: {x: 8.59375, y: 3.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
