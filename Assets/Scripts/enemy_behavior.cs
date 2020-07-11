@@ -22,8 +22,6 @@ public class enemy_behavior : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-
-
         rb.transform.position = new Vector2(rb.position.x, Mathf.MoveTowards(rb.position.y, player.y, accl));
         
 
