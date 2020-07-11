@@ -9,7 +9,7 @@ public class bullet : MonoBehaviour
     public bool enemyShoot;
     void Start()
     {
-        rb.velocity = new Vector2(vel, 0);
+        rb.velocity = transform.up * vel;
     }
 
   
@@ -30,10 +30,10 @@ public class bullet : MonoBehaviour
             {
                 Destroy(gameObject);
 
-                collision.GetComponent<player>().takeDamage(1);
+                Destroy(collision.gameObject);
             }
         }
-        if (collision.gameObject.CompareTag("border_despawn"))
+        if (collision.gameObject.CompareTag("border"))
         {
             Destroy(gameObject);
         }

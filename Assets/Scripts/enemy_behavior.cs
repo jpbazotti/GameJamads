@@ -40,7 +40,7 @@ public class enemy_behavior : MonoBehaviour
     IEnumerator bang(RaycastHit2D sighttest){
         shooting = true;
         Debug.Log(sighttest.collider.tag);
-        Instantiate(missile, castPoint.transform.position, Quaternion.Euler(0, 0, 0));
+        Instantiate(missile, castPoint.transform.position, Quaternion.Euler(0, 0, -90));
         Debug.Log(castPoint.transform);
         yield return new WaitForSeconds(0.5f);
         shooting = false;

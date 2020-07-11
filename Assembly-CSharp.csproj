@@ -63,10 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Enemy_behavior_3.cs" />
+    <Compile Include="Assets\Scripts\Missile_enemy.cs" />
     <Compile Include="Assets\Scripts\Parallax.cs" />
     <Compile Include="Assets\Scripts\asteroid.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
     <Compile Include="Assets\Scripts\enemy_behavior.cs" />
+    <Compile Include="Assets\Scripts\enemy_behavior_2.cs" />
     <Compile Include="Assets\Scripts\missile.cs" />
     <Compile Include="Assets\Scripts\player.cs" />
     <Compile Include="Assets\Scripts\spawner.cs" />
