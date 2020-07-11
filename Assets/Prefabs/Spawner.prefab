@@ -46,6 +46,9 @@ MonoBehaviour:
   cam: {fileID: 0}
   asteroid: {fileID: 5367180781614377585, guid: 1b8cddc2706b1a041a317773ff95c176,
     type: 3}
-  enemy: {fileID: 8157982687787058448, guid: 4644defdadf768f42a6143c702fda499, type: 3}
+  enemies:
+  - {fileID: 8157982687787058448, guid: 4644defdadf768f42a6143c702fda499, type: 3}
+  - {fileID: 1779642945451293793, guid: b6420ce879ccd4e439880ceffa7c0068, type: 3}
+  - {fileID: 2094968113700515586, guid: a6da0d78e9d083544b549a985fcaab83, type: 3}
   asteroidSpawnMaxRange: 600
   enemySpawnMaxRange: 100

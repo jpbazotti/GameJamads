@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class spawner : MonoBehaviour
 {
-    public GameObject cam, asteroid, enemy;
+    public GameObject cam, asteroid;
+    public GameObject[] enemies;
     private float camHor, camVer;
     public int asteroidSpawnMaxRange, enemySpawnMaxRange;
     private Vector2 camPos;
@@ -32,7 +34,7 @@ public class spawner : MonoBehaviour
 
         if (spawnEnemy >= enemySpawnMaxRange - 1)
         {
-            Instantiate(enemy, new Vector2(camHor + 5, Random.Range(-camVer, camVer)), Quaternion.Euler(0, 0, 90));
+            Instantiate(enemies[Random.Range(0, 3)], new Vector2(camHor + 5, Random.Range(-camVer, camVer)), Quaternion.Euler(0, 0, 90));
         }
     }
 }

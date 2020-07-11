@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3884239558652494026}
   - component: {fileID: -6082258223339432902}
   - component: {fileID: 9093144574637114921}
+  - component: {fileID: 5614051317135992439}
   m_Layer: 8
   m_Name: asteroid
   m_TagString: enemy
@@ -73,7 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea14a4071fb30d94fb831dac5dd8a568, type: 3}
+  m_Sprite: {fileID: 3422002083601328764, guid: 740c601fa079fb944b2732d4fe53a890,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,18 +99,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.5028476}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.19, y: 7.11}
+    oldSize: {x: 8, y: 8}
     newSize: {x: 5.19, y: 7.11}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.19, y: 7.11}
+  m_Size: {x: 2.1614573, y: 3.065841}
   m_EdgeRadius: 0
 --- !u!50 &-6082258223339432902
 Rigidbody2D:
@@ -145,3 +147,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: -6082258223339432902}
   vel: 50
+--- !u!95 &5614051317135992439
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367180781614377585}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a258d7688d89f2a49acf8229bd0cfb9b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
