@@ -11,7 +11,7 @@ public class bullet : MonoBehaviour
         rb.velocity = new Vector2(vel, 0);
     }
 
-  
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -20,14 +20,10 @@ public class bullet : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        
-
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("border"))
+        if (collision.gameObject.CompareTag("border"))
         {
             Destroy(gameObject);
         }
+
     }
 }
