@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class spawner : MonoBehaviour
 {
-    public GameObject cam, asteroid;
+    public GameObject cam, asteroid, pickup;
     public GameObject[] enemies;
     private float camHor, camVer;
     public int asteroidSpawnMaxRange, enemySpawnMaxFrames;
@@ -38,6 +38,10 @@ public class spawner : MonoBehaviour
         {
             counter = 0;
             Instantiate(enemies[Random.Range(0, 3)], new Vector2(camHor + 5, Random.Range(-camVer, camVer)), Quaternion.Euler(0, 0, 90));
+            if(Random.Range(0,15) == 14)
+            {
+                Instantiate(pickup, new Vector2(camHor + 5, Random.Range(-camVer, camVer)), Quaternion.Euler(0, 0, 90));
+            }
         }
     }
 }

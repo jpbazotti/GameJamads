@@ -18,6 +18,7 @@ public class player : MonoBehaviour
     public GameObject missile, bullet;
     private Animator animator;
     public heath_bar heath_Bar;
+    public audioManager audioPlayer;
     void Start()
     {
         shieldFixCounter = shieldFix;
@@ -31,6 +32,7 @@ public class player : MonoBehaviour
         shooting = false;
         moveX = 0;
         heath_Bar.setMaxHealth(7);
+        audioPlayer = FindObjectOfType<audioManager>();
     }
 
     private void FixedUpdate()
@@ -59,8 +61,9 @@ public class player : MonoBehaviour
                 shieldMalfunctionAllow = true;
             }
         }
-        if (Input.GetKeyDown("z"))
+        if (Input.GetKeyDown("z")&&!dampener)
         {
+            audioPlayer.Play("dampenerson");
             dampener = true;
         }
 
@@ -70,7 +73,7 @@ public class player : MonoBehaviour
             StartCoroutine(blink());
         }
         shieldRecover -= Time.deltaTime;
-        if (!shieldMalfunction && shieldRecover <= 0 && shieldMalfunctionAllow)
+        if (!shieldMalfunction && shieldRecover <= 0 && shieldMalfunctionAllow&&!shield)
         {
             StartCoroutine(shieldManagement(true, false));
         }
@@ -79,9 +82,10 @@ public class player : MonoBehaviour
     void randomEvents()
     {
         chance = Random.Range(0, 600);
-        if (chance >= 599)
+        if (chance >= 599 && dampener)
         {
             dampener = false;
+            audioPlayer.Play("dampenersoff");
             Debug.Log("dampeners off");
         }
         chance = Random.Range(0, 600);
@@ -110,7 +114,6 @@ public class player : MonoBehaviour
     }
     public void takeDamage(int i)
     {
-
         if (!shield)
         {
             if (invencibility < 0)
@@ -118,10 +121,13 @@ public class player : MonoBehaviour
                 hp -= i;
                 heath_Bar.setHealth(hp);
                 invencibility = iframes;
+                audioPlayer.Play("hit");
+
             }
 
             if (hp <= 0)
             {
+                audioPlayer.Play("death");
                 Destroy(gameObject);
             }
         }
@@ -130,6 +136,14 @@ public class player : MonoBehaviour
             StartCoroutine(shieldManagement(false, false));
         }
 
+    }
+    public void giveLife(int life)
+    {
+        if (hp < 7)
+        {
+            hp += life;
+            heath_Bar.setHealth(hp);
+        }
     }
 
     IEnumerator shieldManagement(bool activated, bool malfunction)
@@ -147,6 +161,15 @@ public class player : MonoBehaviour
             shieldMalfunctionAllow = false;
             yield return new WaitForSeconds(3.2f);
             shieldMalfunction = true;
+        }
+        if (activated)
+        {
+            audioPlayer.Play("shieldup");
+
+        }
+        else
+        {
+            audioPlayer.Play("shielddown");
         }
         shield = activated;
         shielding = false;

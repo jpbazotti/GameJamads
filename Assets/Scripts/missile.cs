@@ -66,7 +66,7 @@ public class missile : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy"))
         {
             Destroy(gameObject);
-
+            FindObjectOfType<audioManager>().Play("enemyexplosion");
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("border"))
