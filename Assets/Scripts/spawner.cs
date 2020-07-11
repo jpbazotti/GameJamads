@@ -8,7 +8,8 @@ public class spawner : MonoBehaviour
     public GameObject cam, asteroid;
     public GameObject[] enemies;
     private float camHor, camVer;
-    public int asteroidSpawnMaxRange, enemySpawnMaxRange;
+    public int asteroidSpawnMaxRange, enemySpawnMaxFrames;
+    private int counter;
     private Vector2 camPos;
     void Start()
     {
@@ -21,19 +22,21 @@ public class spawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+        counter++;
         float spawnAsteroid = Random.Range(0, asteroidSpawnMaxRange);
-        float spawnEnemy = Random.Range(0, enemySpawnMaxRange);
 
         if (spawnAsteroid >= asteroidSpawnMaxRange - 1)
         {
             Instantiate(asteroid, new Vector2(Random.Range(camPos.x, camHor), camVer + 5), Quaternion.Euler(0, 0, 0));
-        } else if (spawnAsteroid <= 1)
+        }
+        else if (spawnAsteroid <= 1)
         {
             Instantiate(asteroid, new Vector2(Random.Range(camPos.x, camHor), -(camVer + 5)), Quaternion.Euler(0, 0, 0));
         }
 
-        if (spawnEnemy >= enemySpawnMaxRange - 1)
+        if (counter == enemySpawnMaxFrames)
         {
+            counter = 0;
             Instantiate(enemies[Random.Range(0, 3)], new Vector2(camHor + 5, Random.Range(-camVer, camVer)), Quaternion.Euler(0, 0, 90));
         }
     }

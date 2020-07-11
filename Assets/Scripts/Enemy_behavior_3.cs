@@ -10,9 +10,12 @@ public class Enemy_behavior_3 : MonoBehaviour
     public GameObject missile;
     public Transform castPoint;
     private bool shooting;
+    private float positionY;
+    public float Xvel;
     void Start()
     {
-        rb.velocity = new Vector2(-7, 0);
+        rb.velocity = new Vector2(-(Xvel), 0);
+        positionY = Random.Range(-18f, 18f);
     }
 
 
@@ -20,9 +23,9 @@ public class Enemy_behavior_3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        rb.transform.position = new Vector2(rb.position.x, Mathf.MoveTowards(rb.position.y, player.y, accl));
+
+        rb.transform.position = new Vector2(rb.position.x, Mathf.MoveTowards(rb.position.y, positionY, accl));
 
 
         //ver player

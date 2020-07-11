@@ -59,13 +59,18 @@ public class missile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            collision.GetComponent<player>().takeDamage(1);
+        }
         if (collision.gameObject.CompareTag("enemy"))
         {
             Destroy(gameObject);
 
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("border_despawn"))
+        if (collision.gameObject.CompareTag("border"))
         {
             Destroy(gameObject);
         }

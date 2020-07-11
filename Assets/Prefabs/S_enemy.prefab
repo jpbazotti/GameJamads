@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7470b9bb7f55a4789905c98a14cf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accl: 0.1
+  accl: 0.03
   acclToPlayer: 0.3
   delay: 0.1
   rb: {fileID: 2094968113700515584}
@@ -244,3 +244,4 @@ MonoBehaviour:
   castPoint: {fileID: 2094968112715819208}
   castPoint2: {fileID: 2094968112825223076}
   castPoint3: {fileID: 2094968113610063444}
+  Xvel: 25

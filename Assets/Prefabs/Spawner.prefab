@@ -51,4 +51,4 @@ MonoBehaviour:
   - {fileID: 1779642945451293793, guid: b6420ce879ccd4e439880ceffa7c0068, type: 3}
   - {fileID: 2094968113700515586, guid: a6da0d78e9d083544b549a985fcaab83, type: 3}
   asteroidSpawnMaxRange: 600
-  enemySpawnMaxRange: 100
+  enemySpawnMaxFrames: 100

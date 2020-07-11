@@ -1654,6 +1654,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420028}
+    - target: {fileID: 5736834788244948008, guid: 0ad2309496e702e43b374cb3b7169c32,
+        type: 3}
+      propertyPath: enemySpawnMaxFrames
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5736834788244948009, guid: 0ad2309496e702e43b374cb3b7169c32,
         type: 3}
       propertyPath: m_LocalPosition.x

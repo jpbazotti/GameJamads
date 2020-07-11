@@ -144,12 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783aa823d3cf84b49851bd7317446d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accl: 0.1
+  accl: 0.03
   acclToPlayer: 0.3
   delay: 0.1
   rb: {fileID: 8157982687787058451}
   missile: {fileID: 7325374808409473236, guid: c8e7f2d6d80420f49b3a1f99d7d35cff, type: 3}
   castPoint: {fileID: 8157982689124110757}
+  Xvel: 10
 --- !u!1 &8157982689124110810
 GameObject:
   m_ObjectHideFlags: 0

@@ -174,9 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690c538d556be4c45b6e5895e4131785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accl: 0.1
+  accl: 0.03
   acclToPlayer: 0.3
   delay: 0.1
   rb: {fileID: 1779642945451293795}
   missile: {fileID: 1679561662998350164, guid: 9bea51c63ef986948b1e513e372bf4b6, type: 3}
   castPoint: {fileID: 1779642944902748227}
+  Xvel: 15

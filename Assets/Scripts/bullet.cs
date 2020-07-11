@@ -32,7 +32,7 @@ public class bullet : MonoBehaviour
                 collision.GetComponent<player>().takeDamage(1);
             }
         }
-        if (collision.gameObject.CompareTag("border_despawn"))
+        if (collision.gameObject.CompareTag("border"))
         {
             Destroy(gameObject);
         }
